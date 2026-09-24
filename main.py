@@ -9,6 +9,12 @@ from src.archivos import (
 from src.configuracion import obtener_datos_sistema
 from src.exportacion import exportar_a_xml
 from src.busquedas import busqueda_secuencial_por_id
+from src.busquedas import busqueda_secuencial_por_id
+
+from src.indices import (
+    construir_indice_principal,
+    buscar_por_indice
+)
 
 def mostrar_equipo(equipo):
     print("\n------------------------------")
@@ -52,6 +58,10 @@ def opcion_registrar():
     resultado, mensaje = registrar_equipo(equipo)
     print(f"\n{mensaje}")
 
+    if resultado:
+        construir_indice_principal()
+    print("Indice principal actualizado.")
+
 
 def opcion_consultar_todos():
     print("\n=== EQUIPOS REGISTRADOS ===")
@@ -92,6 +102,34 @@ def opcion_buscar():
     else:
         print("Resultado: NO ENCONTRADO")
 
+def opcion_construir_indice():
+    print("\n=== CONSTRUIR INDICE PRINCIPAL ===")
+
+    cantidad, ruta = construir_indice_principal()
+
+    print("\nIndice principal construido correctamente.")
+    print(f"Registros indexados: {cantidad}")
+    print(f"Archivo generado: {ruta}")
+
+def opcion_buscar_por_indice():
+    print("\n=== BUSQUEDA POR INDICE ===")
+
+    id_equipo = input("Ingrese el ID a buscar: ").strip()
+
+    if not id_equipo:
+        print("\nError: debe ingresar un ID.")
+        return
+
+    equipo, mensaje = buscar_por_indice(id_equipo)
+
+    print(f"\nValor buscado: {id_equipo}")
+    print(mensaje)
+
+    if equipo:
+        print("Resultado: ENCONTRADO")
+        mostrar_equipo(equipo)
+    else:
+        print("Resultado: NO ENCONTRADO")
 
 def opcion_actualizar():
     print("\n=== ACTUALIZAR EQUIPO ===")
@@ -130,6 +168,10 @@ def opcion_actualizar():
     resultado, mensaje = actualizar_equipo(id_equipo, nuevos_datos)
     print(f"\n{mensaje}")
 
+    if resultado:
+        construir_indice_principal()
+    print("Indice principal actualizado.")
+
 
 def opcion_eliminar():
     print("\n=== ELIMINAR EQUIPO ===")
@@ -148,8 +190,12 @@ def opcion_eliminar():
     ).strip().lower()
 
     if confirmacion == "s":
-        resultado, mensaje = eliminar_equipo(id_equipo)
-        print(f"\n{mensaje}")
+            resultado, mensaje = eliminar_equipo(id_equipo)
+    print(f"\n{mensaje}")
+
+    if resultado:
+        construir_indice_principal()
+        print("Indice principal actualizado.")
     else:
         print("\nEliminacion cancelada.")
 
@@ -173,12 +219,12 @@ def mostrar_menu():
     print("1. Registrar equipo")
     print("2. Consultar todos los equipos")
     print("3. Busqueda secuencial por ID")
-    print("4. Actualizar equipo")
-    print("5. Eliminar equipo")
-    print("6. Exportar datos a XML")
+    print("4. Construir/Reconstruir indice principal")
+    print("5. Busqueda por indice")
+    print("6. Actualizar equipo")
+    print("7. Eliminar equipo")
+    print("8. Exportar datos a XML")
     print("0. Salir")
-    print("============================================")
-
 
 def main():
     inicializar_archivo()
@@ -198,14 +244,20 @@ def main():
             opcion_buscar()
 
         elif opcion == "4":
-            opcion_actualizar()
+            opcion_construir_indice()
 
         elif opcion == "5":
-            opcion_eliminar()
+            opcion_buscar_por_indice()
 
         elif opcion == "6":
+            opcion_actualizar()
+
+        elif opcion == "7":
+            opcion_eliminar()
+
+        elif opcion == "8":
             opcion_exportar_xml()
-        
+            
         elif opcion == "0":
             print("\nPrograma finalizado.")
             break
