@@ -8,6 +8,7 @@ from src.archivos import (
 )
 from src.configuracion import obtener_datos_sistema
 from src.exportacion import exportar_a_xml
+from src.busquedas import busqueda_secuencial_por_id
 
 def mostrar_equipo(equipo):
     print("\n------------------------------")
@@ -68,15 +69,28 @@ def opcion_consultar_todos():
 
 
 def opcion_buscar():
-    print("\n=== BUSCAR EQUIPO POR ID ===")
+    print("\n=== BUSQUEDA SECUENCIAL POR ID ===")
 
-    id_equipo = input("Ingrese el ID: ").strip()
-    equipo = buscar_por_id(id_equipo)
+    id_equipo = input("Ingrese el ID a buscar: ").strip()
 
-    if equipo:
-        mostrar_equipo(equipo)
+    if not id_equipo:
+        print("\nError: debe ingresar un ID.")
+        return
+
+    resultado = busqueda_secuencial_por_id(id_equipo)
+
+    print("\n--- RESULTADO DE LA BUSQUEDA ---")
+    print(f"Valor buscado: {resultado['valor_buscado']}")
+    print(
+        f"Registros recorridos: "
+        f"{resultado['registros_recorridos']}"
+    )
+
+    if resultado["encontrado"]:
+        print("Resultado: ENCONTRADO")
+        mostrar_equipo(resultado["registro"])
     else:
-        print("\nNo se encontro un equipo con ese ID.")
+        print("Resultado: NO ENCONTRADO")
 
 
 def opcion_actualizar():
@@ -158,7 +172,7 @@ def mostrar_menu():
     print("============================================")
     print("1. Registrar equipo")
     print("2. Consultar todos los equipos")
-    print("3. Buscar equipo por ID")
+    print("3. Busqueda secuencial por ID")
     print("4. Actualizar equipo")
     print("5. Eliminar equipo")
     print("6. Exportar datos a XML")

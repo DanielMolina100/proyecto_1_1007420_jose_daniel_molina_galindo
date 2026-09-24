@@ -1,2 +1,4 @@
 id,nombre,categoria,marca,modelo,departamento,estado,fecha_registro
 EQ001,Laptop Dell Latitude 5420,Computadoras,Dell,Latitude 5420,Informatica,Activo,2026-09-24
+EQ002,Impresora Epson L3250,Impresoras,Epson,L3250,Administracion,Activo,2026-09-24
+EQ003,Monitor Samsung 24,Monitores,Samsung,LF24T350,Contabilidad,Mantenimiento,2026-09-24
