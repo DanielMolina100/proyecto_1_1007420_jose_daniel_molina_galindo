@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<equipos>
+    <equipo>
+        <id>EQ001</id>
+        <nombre>Laptop Dell Latitude 5420</nombre>
+        <categoria>Computadoras</categoria>
+        <marca>Dell</marca>
+        <modelo>Latitude 5420</modelo>
+        <departamento>Informatica</departamento>
+        <estado>Activo</estado>
+        <fecha_registro>2026-09-24</fecha_registro>
+    </equipo>
+</equipos>

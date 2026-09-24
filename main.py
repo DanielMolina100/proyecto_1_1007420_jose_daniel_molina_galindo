@@ -7,6 +7,7 @@ from src.archivos import (
     eliminar_equipo
 )
 from src.configuracion import obtener_datos_sistema
+from src.exportacion import exportar_a_xml
 
 def mostrar_equipo(equipo):
     print("\n------------------------------")
@@ -138,6 +139,12 @@ def opcion_eliminar():
     else:
         print("\nEliminacion cancelada.")
 
+def opcion_exportar_xml():
+    print("\n=== EXPORTAR DATOS A XML ===")
+
+    resultado, mensaje = exportar_a_xml()
+
+    print(f"\n{mensaje}")
 
 def mostrar_menu():
     datos_sistema = obtener_datos_sistema()
@@ -154,6 +161,7 @@ def mostrar_menu():
     print("3. Buscar equipo por ID")
     print("4. Actualizar equipo")
     print("5. Eliminar equipo")
+    print("6. Exportar datos a XML")
     print("0. Salir")
     print("============================================")
 
@@ -181,6 +189,9 @@ def main():
         elif opcion == "5":
             opcion_eliminar()
 
+        elif opcion == "6":
+            opcion_exportar_xml()
+        
         elif opcion == "0":
             print("\nPrograma finalizado.")
             break
