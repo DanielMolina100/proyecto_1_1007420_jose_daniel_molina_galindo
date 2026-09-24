@@ -1,9 +1,13 @@
 import csv
-from pathlib import Path
 from datetime import datetime
 
+from src.configuracion import (
+    obtener_ruta_principal,
+    obtener_configuracion_general
+)
 
-RUTA_ARCHIVO = Path("data/registros.csv")
+
+RUTA_ARCHIVO = obtener_ruta_principal()
 
 CAMPOS = [
     "id",
@@ -68,7 +72,10 @@ def registrar_equipo(equipo):
     if existe_id(equipo["id"]):
         return False, "El ID ingresado ya existe."
 
-    equipo["fecha_registro"] = datetime.now().strftime("%Y-%m-%d")
+    configuracion = obtener_configuracion_general()
+    formato_fecha = configuracion["formato_fecha"]
+
+    equipo["fecha_registro"] = datetime.now().strftime(formato_fecha)       
 
     with open(RUTA_ARCHIVO, "a", newline="", encoding="utf-8") as archivo:
         escritor = csv.DictWriter(archivo, fieldnames=CAMPOS)

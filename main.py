@@ -6,7 +6,7 @@ from src.archivos import (
     actualizar_equipo,
     eliminar_equipo
 )
-
+from src.configuracion import obtener_datos_sistema
 
 def mostrar_equipo(equipo):
     print("\n------------------------------")
@@ -140,8 +140,14 @@ def opcion_eliminar():
 
 
 def mostrar_menu():
+    datos_sistema = obtener_datos_sistema()
+
     print("\n============================================")
-    print(" SISTEMA DE CONTROL DE EQUIPOS TECNOLOGICOS")
+    print(f" {datos_sistema['nombre'].upper()}")
+    print(
+        f" Version {datos_sistema['version']} | "
+        f"Carne: {datos_sistema['carne']}"
+    )
     print("============================================")
     print("1. Registrar equipo")
     print("2. Consultar todos los equipos")
