@@ -1,0 +1,15 @@
+{
+    "Informatica|Activo": [
+        "EQ001",
+        "EQ004"
+    ],
+    "Administracion|Activo": [
+        "EQ002"
+    ],
+    "Contabilidad|Mantenimiento": [
+        "EQ003"
+    ],
+    "Contabilidad|Inactivo": [
+        "EQ005"
+    ]
+}

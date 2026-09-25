@@ -13,8 +13,13 @@ from src.busquedas import busqueda_secuencial_por_id
 
 from src.indices import (
     construir_indice_principal,
-    buscar_por_indice
+    buscar_por_indice,
+    construir_indice_invertido,
+    buscar_por_categoria,
+    construir_indice_multikey,
+    buscar_multikey
 )
+
 
 def mostrar_equipo(equipo):
     print("\n------------------------------")
@@ -60,8 +65,9 @@ def opcion_registrar():
 
     if resultado:
         construir_indice_principal()
-    print("Indice principal actualizado.")
-
+        construir_indice_invertido()
+        construir_indice_multikey()
+    print("Indices actualizados correctamente.")
 
 def opcion_consultar_todos():
     print("\n=== EQUIPOS REGISTRADOS ===")
@@ -131,6 +137,71 @@ def opcion_buscar_por_indice():
     else:
         print("Resultado: NO ENCONTRADO")
 
+def opcion_construir_indice_invertido():
+    print("\n=== CONSTRUIR INDICE INVERTIDO ===")
+
+    cantidad, ruta = construir_indice_invertido()
+
+    print("\nIndice invertido construido correctamente.")
+    print(f"Categorias indexadas: {cantidad}")
+    print(f"Archivo generado: {ruta}")
+
+
+def opcion_buscar_por_categoria():
+    print("\n=== BUSQUEDA POR CATEGORIA ===")
+
+    categoria = input("Ingrese la categoria a buscar: ").strip()
+
+    if not categoria:
+        print("\nError: debe ingresar una categoria.")
+        return
+
+    equipos, mensaje = buscar_por_categoria(categoria)
+
+    print(f"\nCategoria buscada: {categoria}")
+    print(mensaje)
+
+    if equipos:
+        print("Resultado: ENCONTRADO")
+
+        for equipo in equipos:
+            mostrar_equipo(equipo)
+    else:
+        print("Resultado: NO ENCONTRADO")
+
+def opcion_construir_indice_multikey():
+    print("\n=== CONSTRUIR INDICE MULTIKEY ===")
+
+    cantidad, ruta = construir_indice_multikey()
+
+    print("\nIndice multikey construido correctamente.")
+    print(f"Combinaciones indexadas: {cantidad}")
+    print(f"Archivo generado: {ruta}")
+
+def opcion_buscar_multikey():
+    print("\n=== BUSQUEDA MULTIKEY ===")
+
+    departamento = input("Ingrese el departamento: ").strip()
+    estado = input("Ingrese el estado: ").strip()
+
+    if not departamento or not estado:
+        print("\nError: departamento y estado son obligatorios.")
+        return
+
+    equipos, mensaje = buscar_multikey(departamento, estado)
+
+    print(f"\nDepartamento buscado: {departamento}")
+    print(f"Estado buscado: {estado}")
+    print(mensaje)
+
+    if equipos:
+        print("Resultado: ENCONTRADO")
+
+        for equipo in equipos:
+            mostrar_equipo(equipo)
+    else:
+        print("Resultado: NO ENCONTRADO")
+
 def opcion_actualizar():
     print("\n=== ACTUALIZAR EQUIPO ===")
 
@@ -170,7 +241,9 @@ def opcion_actualizar():
 
     if resultado:
         construir_indice_principal()
-    print("Indice principal actualizado.")
+        construir_indice_invertido()
+        construir_indice_multikey()
+    print("Indices actualizados correctamente.")
 
 
 def opcion_eliminar():
@@ -195,7 +268,9 @@ def opcion_eliminar():
 
     if resultado:
         construir_indice_principal()
-        print("Indice principal actualizado.")
+        construir_indice_invertido()
+        construir_indice_multikey()
+        print("Indices actualizados correctamente.")
     else:
         print("\nEliminacion cancelada.")
 
@@ -221,9 +296,13 @@ def mostrar_menu():
     print("3. Busqueda secuencial por ID")
     print("4. Construir/Reconstruir indice principal")
     print("5. Busqueda por indice")
-    print("6. Actualizar equipo")
-    print("7. Eliminar equipo")
-    print("8. Exportar datos a XML")
+    print("6. Construir/Reconstruir indice invertido")
+    print("7. Busqueda por categoria")
+    print("8. Construir/Reconstruir indice multikey")
+    print("9. Busqueda multikey")
+    print("10. Actualizar equipo")
+    print("11. Eliminar equipo")
+    print("12. Exportar datos a XML")
     print("0. Salir")
 
 def main():
@@ -250,14 +329,26 @@ def main():
             opcion_buscar_por_indice()
 
         elif opcion == "6":
-            opcion_actualizar()
+            opcion_construir_indice_invertido()
 
         elif opcion == "7":
-            opcion_eliminar()
+            opcion_buscar_por_categoria()
 
         elif opcion == "8":
+            opcion_construir_indice_multikey()
+
+        elif opcion == "9":
+            opcion_buscar_multikey()
+
+        elif opcion == "10":
+            opcion_actualizar()
+
+        elif opcion == "11":
+            opcion_eliminar()
+
+        elif opcion == "12":
             opcion_exportar_xml()
-            
+
         elif opcion == "0":
             print("\nPrograma finalizado.")
             break
