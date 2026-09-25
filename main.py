@@ -25,6 +25,11 @@ from src.hashing import (
     buscar_por_hash
 )
 
+from src.integridad import (
+    registrar_hashes,
+    verificar_integridad
+)
+
 def mostrar_equipo(equipo):
     print("\n------------------------------")
     print(f"ID:           {equipo['id']}")
@@ -72,8 +77,9 @@ def opcion_registrar():
         construir_indice_invertido()
         construir_indice_multikey()
         construir_tabla_hash()
-    print("Estructuras auxiliares actualizadas correctamente.")
-
+        registrar_hashes()
+    print("Estructuras auxiliares e integridad actualizadas correctamente.")
+    
 def opcion_consultar_todos():
     print("\n=== EQUIPOS REGISTRADOS ===")
 
@@ -241,6 +247,53 @@ def opcion_buscar_por_hash():
     else:
         print("Resultado: NO ENCONTRADO")
 
+def opcion_registrar_hashes():
+    print("\n=== REGISTRAR HUELLAS SHA-256 ===")
+
+    cantidad, ruta = registrar_hashes()
+
+    print("\nHuellas SHA-256 registradas correctamente.")
+    print(f"Archivos registrados: {cantidad}")
+    print(f"Archivo generado: {ruta}")
+
+def opcion_verificar_integridad():
+    print("\n=== VERIFICAR INTEGRIDAD SHA-256 ===")
+
+    resultado, detalles = verificar_integridad()
+
+    if resultado is None:
+        print("\nNo fue posible realizar la verificacion.")
+
+        for mensaje in detalles:
+            print(mensaje)
+
+        return
+
+    archivos_integros = 0
+    archivos_alterados = 0
+
+    print()
+
+    for detalle in detalles:
+        archivo = detalle["archivo"]
+        estado = detalle["estado"]
+
+        print(f"{archivo}: {estado}")
+
+        if estado == "INTEGRO":
+            archivos_integros += 1
+        else:
+            archivos_alterados += 1
+
+    print("\nResumen de integridad:")
+    print(f"Archivos integros: {archivos_integros}")
+    print(f"Archivos con problemas: {archivos_alterados}")
+
+    if archivos_alterados == 0:
+        print("Resultado general: INTEGRIDAD CORRECTA")
+    else:
+        print("Resultado general: SE DETECTARON ALTERACIONES")
+
 def opcion_actualizar():
     print("\n=== ACTUALIZAR EQUIPO ===")
 
@@ -283,8 +336,8 @@ def opcion_actualizar():
         construir_indice_invertido()
         construir_indice_multikey()
         construir_tabla_hash()
-    print("Estructuras auxiliares actualizadas correctamente.")
-
+        registrar_hashes()
+    print("Estructuras auxiliares e integridad actualizadas correctamente.")
 
 def opcion_eliminar():
     print("\n=== ELIMINAR EQUIPO ===")
@@ -311,7 +364,8 @@ def opcion_eliminar():
         construir_indice_invertido()
         construir_indice_multikey()
         construir_tabla_hash()
-        print("Estructuras auxiliares actualizadas correctamente.")
+        registrar_hashes()
+        print("Estructuras auxiliares e integridad actualizadas correctamente.")
     else:
         print("\nEliminacion cancelada.")
 
@@ -343,10 +397,12 @@ def mostrar_menu():
     print("9. Busqueda multikey")
     print("10. Construir/Reconstruir tabla hash")
     print("11. Busqueda mediante hashing")
-    print("12. Actualizar equipo")
-    print("13. Eliminar equipo")
-    print("14. Exportar datos a XML")
-    print("0. Salir")
+    print("12. Registrar huellas SHA-256")
+    print("13. Verificar integridad SHA-256")
+    print("14. Actualizar equipo")
+    print("15. Eliminar equipo")
+    print("16. Exportar datos a XML")
+    print("0. Salir")   
 
 def main():
     inicializar_archivo()
@@ -390,12 +446,18 @@ def main():
             opcion_buscar_por_hash()
 
         elif opcion == "12":
-            opcion_actualizar()
+            opcion_registrar_hashes()
 
         elif opcion == "13":
-            opcion_eliminar()
+            opcion_verificar_integridad()
 
         elif opcion == "14":
+            opcion_actualizar()
+
+        elif opcion == "15":
+            opcion_eliminar()
+
+        elif opcion == "16":
             opcion_exportar_xml()
 
         elif opcion == "0":
