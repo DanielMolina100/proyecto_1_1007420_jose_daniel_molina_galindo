@@ -20,6 +20,10 @@ from src.indices import (
     buscar_multikey
 )
 
+from src.hashing import (
+    construir_tabla_hash,
+    buscar_por_hash
+)
 
 def mostrar_equipo(equipo):
     print("\n------------------------------")
@@ -67,7 +71,8 @@ def opcion_registrar():
         construir_indice_principal()
         construir_indice_invertido()
         construir_indice_multikey()
-    print("Indices actualizados correctamente.")
+        construir_tabla_hash()
+    print("Estructuras auxiliares actualizadas correctamente.")
 
 def opcion_consultar_todos():
     print("\n=== EQUIPOS REGISTRADOS ===")
@@ -202,6 +207,40 @@ def opcion_buscar_multikey():
     else:
         print("Resultado: NO ENCONTRADO")
 
+def opcion_construir_tabla_hash():
+    print("\n=== CONSTRUIR TABLA HASH ===")
+
+    cantidad, colisiones, ruta = construir_tabla_hash()
+
+    print("\nTabla hash construida correctamente.")
+    print(f"Registros procesados: {cantidad}")
+    print(f"Colisiones detectadas: {colisiones}")
+    print(f"Archivo generado: {ruta}")
+
+def opcion_buscar_por_hash():
+    print("\n=== BUSQUEDA MEDIANTE HASHING ===")
+
+    id_equipo = input("Ingrese el ID a buscar: ").strip()
+
+    if not id_equipo:
+        print("\nError: debe ingresar un ID.")
+        return
+
+    equipo, posicion, mensaje = buscar_por_hash(id_equipo)
+
+    print(f"\nID buscado: {id_equipo}")
+
+    if posicion is not None:
+        print(f"Posicion hash calculada: {posicion}")
+
+    print(mensaje)
+
+    if equipo:
+        print("Resultado: ENCONTRADO")
+        mostrar_equipo(equipo)
+    else:
+        print("Resultado: NO ENCONTRADO")
+
 def opcion_actualizar():
     print("\n=== ACTUALIZAR EQUIPO ===")
 
@@ -243,7 +282,8 @@ def opcion_actualizar():
         construir_indice_principal()
         construir_indice_invertido()
         construir_indice_multikey()
-    print("Indices actualizados correctamente.")
+        construir_tabla_hash()
+    print("Estructuras auxiliares actualizadas correctamente.")
 
 
 def opcion_eliminar():
@@ -270,7 +310,8 @@ def opcion_eliminar():
         construir_indice_principal()
         construir_indice_invertido()
         construir_indice_multikey()
-        print("Indices actualizados correctamente.")
+        construir_tabla_hash()
+        print("Estructuras auxiliares actualizadas correctamente.")
     else:
         print("\nEliminacion cancelada.")
 
@@ -300,9 +341,11 @@ def mostrar_menu():
     print("7. Busqueda por categoria")
     print("8. Construir/Reconstruir indice multikey")
     print("9. Busqueda multikey")
-    print("10. Actualizar equipo")
-    print("11. Eliminar equipo")
-    print("12. Exportar datos a XML")
+    print("10. Construir/Reconstruir tabla hash")
+    print("11. Busqueda mediante hashing")
+    print("12. Actualizar equipo")
+    print("13. Eliminar equipo")
+    print("14. Exportar datos a XML")
     print("0. Salir")
 
 def main():
@@ -341,18 +384,23 @@ def main():
             opcion_buscar_multikey()
 
         elif opcion == "10":
-            opcion_actualizar()
+            opcion_construir_tabla_hash()
 
         elif opcion == "11":
-            opcion_eliminar()
+            opcion_buscar_por_hash()
 
         elif opcion == "12":
+            opcion_actualizar()
+
+        elif opcion == "13":
+            opcion_eliminar()
+
+        elif opcion == "14":
             opcion_exportar_xml()
 
         elif opcion == "0":
             print("\nPrograma finalizado.")
             break
-
         else:
             print("\nOpcion invalida. Intente nuevamente.")
 

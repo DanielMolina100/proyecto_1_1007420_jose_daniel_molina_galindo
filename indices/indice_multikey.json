@@ -1,7 +1,8 @@
 {
     "Informatica|Activo": [
         "EQ001",
-        "EQ004"
+        "EQ004",
+        "EQ008"
     ],
     "Administracion|Activo": [
         "EQ002"
