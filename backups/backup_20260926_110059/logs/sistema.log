@@ -13,5 +13,3 @@
 [2026-09-26 10:40:20] [INTEGRIDAD] Verificacion realizada. Archivos integros: 6. Archivos con problemas: 0.
 [2026-09-26 10:40:24] [EXPORTACION] Exportacion XML ejecutada. Resultado: Datos exportados correctamente a: exports\equipos.xml
 [2026-09-26 10:55:55] [METADATOS] Consulta de metadatos del archivo data/registros.csv.
-[2026-09-26 11:26:43] [RESTAURACION] Backup backup_20260926_111209 restaurado. Archivos con problemas de integridad: 0.
-[2026-09-26 11:28:22] [BUSQUEDA] Busqueda secuencial del ID EQ003. Encontrado: True. Registros recorridos: 3.

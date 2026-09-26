@@ -1,0 +1,18 @@
+{
+    "Computadoras": [
+        "EQ001",
+        "EQ005"
+    ],
+    "Impresoras": [
+        "EQ002"
+    ],
+    "Monitores": [
+        "EQ003"
+    ],
+    "Redes": [
+        "EQ004"
+    ],
+    "Servidores": [
+        "EQ008"
+    ]
+}

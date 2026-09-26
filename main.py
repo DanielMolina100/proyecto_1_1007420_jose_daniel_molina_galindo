@@ -32,7 +32,13 @@ from src.integridad import (
 
 from src.logs import registrar_log
 from src.pila import PilaOperaciones
+from src.metadatos import obtener_metadatos
 
+from src.respaldos import (
+    crear_backup,
+    listar_backups,
+    restaurar_backup
+)
 
 pila_operaciones = PilaOperaciones()
 
@@ -505,6 +511,190 @@ def opcion_mostrar_historial_pila():
     for posicion, operacion in enumerate(historial, start=1):
         print(f"{posicion}. {operacion}")
 
+def opcion_consultar_metadatos():
+    print("\n=== METADATOS DE ARCHIVOS ===")
+
+    archivos = {
+        "1": "data/registros.csv",
+        "2": "config/configuracion.json",
+        "3": "indices/indice_principal.json",
+        "4": "indices/indice_invertido_categoria.json",
+        "5": "indices/indice_multikey.json",
+        "6": "indices/tabla_hash.json",
+        "7": "indices/hashes.json",
+        "8": "logs/sistema.log",
+        "9": "exports/equipos.xml"
+    }
+
+    print("\nSeleccione un archivo:")
+    print("1. Archivo principal - registros.csv")
+    print("2. Configuracion - configuracion.json")
+    print("3. Indice principal")
+    print("4. Indice invertido")
+    print("5. Indice multikey")
+    print("6. Tabla hash")
+    print("7. Hashes SHA-256")
+    print("8. Log del sistema")
+    print("9. Exportacion XML")
+
+    opcion = input("\nSeleccione una opcion: ").strip()
+
+    if opcion not in archivos:
+        print("\nOpcion de archivo invalida.")
+        return
+
+    ruta = archivos[opcion]
+    metadatos = obtener_metadatos(ruta)
+
+    if metadatos is None:
+        print("\nNo fue posible obtener los metadatos del archivo.")
+        return
+
+    print("\n--- METADATOS ---")
+    print(f"Nombre:             {metadatos['nombre']}")
+    print(f"Ruta:               {metadatos['ruta']}")
+    print(f"Extension:          {metadatos['extension']}")
+    print(f"Tamano en bytes:    {metadatos['tamano_bytes']}")
+    print(f"Fecha de creacion:  {metadatos['fecha_creacion']}")
+    print(f"Ultima modificacion:{metadatos['fecha_modificacion']}")
+    print(
+        f"Permiso de lectura: "
+        f"{'Si' if metadatos['lectura'] else 'No'}"
+    )
+    print(
+        f"Permiso escritura:  "
+        f"{'Si' if metadatos['escritura'] else 'No'}"
+    )
+
+    registrar_log(
+        "METADATOS",
+        f"Consulta de metadatos del archivo {ruta}."
+    )
+
+    pila_operaciones.push(
+        f"Consulta de metadatos: {metadatos['nombre']}"
+    )
+
+def opcion_crear_backup():
+    print("\n=== CREAR BACKUP ===")
+
+    resultado, informacion, cantidad = crear_backup()
+
+    if not resultado:
+        print(f"\nNo fue posible crear el backup: {informacion}")
+        return
+
+    print("\nBackup creado correctamente.")
+    print(f"Carpeta: {informacion}")
+    print(f"Archivos respaldados: {cantidad}")
+
+    registrar_log(
+        "BACKUP",
+        f"Backup creado en {informacion}. "
+        f"Archivos respaldados: {cantidad}."
+    )
+
+    pila_operaciones.push(
+        f"Creacion de backup: {informacion.name}"
+    )
+
+def opcion_restaurar_backup():
+    print("\n=== RESTAURAR BACKUP ===")
+
+    backups = listar_backups()
+
+    if not backups:
+        print("\nNo existen backups disponibles.")
+        return
+
+    print("\nBackups disponibles:")
+
+    for numero, backup in enumerate(backups, start=1):
+        print(f"{numero}. {backup.name}")
+
+    seleccion = input(
+        "\nSeleccione el numero del backup a restaurar: "
+    ).strip()
+
+    if not seleccion.isdigit():
+        print("\nSeleccion invalida.")
+        return
+
+    posicion = int(seleccion) - 1
+
+    if posicion < 0 or posicion >= len(backups):
+        print("\nEl backup seleccionado no existe.")
+        return
+
+    backup_seleccionado = backups[posicion]
+
+    confirmacion = input(
+        f"\nSe restaurara '{backup_seleccionado.name}'. "
+        "¿Desea continuar? (S/N): "
+    ).strip().upper()
+
+    if confirmacion != "S":
+        print("\nRestauracion cancelada.")
+        return
+
+    resultado, mensaje = restaurar_backup(
+        backup_seleccionado.name
+    )
+
+    if not resultado:
+        print(f"\n{mensaje}")
+        return
+
+    print(f"\n{mensaje}")
+    print("\nReconstruyendo estructuras auxiliares...")
+
+    construir_indice_principal()
+    construir_indice_invertido()
+    construir_indice_multikey()
+    construir_tabla_hash()
+
+    # La restauracion y reconstruccion representan
+    # el nuevo estado valido del sistema.
+    registrar_hashes()
+
+    print("Indices y tabla hash reconstruidos.")
+    print("Huellas SHA-256 actualizadas.")
+
+    resultado_integridad, detalles = verificar_integridad()
+
+    archivos_alterados = 0
+
+    if resultado_integridad:
+        print("\nVerificacion posterior a la restauracion:")
+
+        for detalle in detalles:
+            print(
+                f"{detalle['archivo']}: "
+                f"{detalle['estado']}"
+            )
+
+            if detalle["estado"] != "INTEGRO":
+                archivos_alterados += 1
+
+    registrar_log(
+        "RESTAURACION",
+        f"Backup {backup_seleccionado.name} restaurado. "
+        f"Archivos con problemas de integridad: "
+        f"{archivos_alterados}."
+    )
+
+    pila_operaciones.push(
+        f"Restauracion de backup: {backup_seleccionado.name}"
+    )
+
+    if archivos_alterados == 0:
+        print("\nRestauracion completada con integridad correcta.")
+    else:
+        print(
+            "\nRestauracion completada, pero se detectaron "
+            "problemas de integridad."
+        )
+
 def mostrar_menu():
     datos_sistema = obtener_datos_sistema()
 
@@ -532,6 +722,9 @@ def mostrar_menu():
     print("15. Eliminar equipo")
     print("16. Exportar datos a XML")
     print("17. Ver historial de operaciones (Pila LIFO)")
+    print("18. Consultar metadatos de archivos")
+    print("19. Crear backup")
+    print("20. Restaurar backup")
     print("0. Salir")   
 
 def main():
@@ -592,6 +785,15 @@ def main():
 
         elif opcion == "17":
             opcion_mostrar_historial_pila()
+        
+        elif opcion == "18":
+            opcion_consultar_metadatos()
+        
+        elif opcion == "19":
+            opcion_crear_backup()
+
+        elif opcion == "20":
+            opcion_restaurar_backup()
         
         elif opcion == "0":
             print("\nPrograma finalizado.")

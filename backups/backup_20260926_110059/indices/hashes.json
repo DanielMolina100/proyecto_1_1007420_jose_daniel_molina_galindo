@@ -1,0 +1,8 @@
+{
+    "data\\registros.csv": "b7287f70eae9e705ecb518be6780223b693e9ca62e894e690cfacabdff0d2690",
+    "config\\configuracion.json": "0eea86e08e72605b3f656ebe800493c4a14179ca06c3f501a033f0ffec42e6f4",
+    "indices\\indice_principal.json": "8d14bc977a843737a26e73b2dc9768481afc9d030cf2e6ee21b95639b7fd52d4",
+    "indices\\indice_invertido_categoria.json": "11f2d5ce4086bfdbb83c902d661a480a65c2bdc361a653d7da619c004778299e",
+    "indices\\indice_multikey.json": "7fcae8f30e1ef51e74ff644cfc6f7b74316c21d96aa9b68d8adef54fec851578",
+    "indices\\tabla_hash.json": "354cf4189cf4627cd30b9820accf9b3d5387142cf92dfc2ba5594a41ee02b8ed"
+}
