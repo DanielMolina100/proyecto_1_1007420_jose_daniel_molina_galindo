@@ -36,18 +36,57 @@ def inicializar_archivo():
 def leer_registros():
     """
     Lee todos los registros almacenados en el archivo CSV.
+    Maneja archivo inexistente, vacio o con formato invalido.
     """
-    inicializar_archivo()
+    if not RUTA_ARCHIVO.exists():
+        print(
+            f"\nError: no se encontro el archivo principal "
+            f"{RUTA_ARCHIVO}."
+        )
+        return []
 
-    registros = []
+    try:
+        if RUTA_ARCHIVO.stat().st_size == 0:
+            print(
+                f"\nError: el archivo principal "
+                f"{RUTA_ARCHIVO} esta vacio."
+            )
+            return []
 
-    with open(RUTA_ARCHIVO, "r", newline="", encoding="utf-8") as archivo:
-        lector = csv.DictReader(archivo)
+        registros = []
 
-        for registro in lector:
-            registros.append(registro)
+        with open(
+            RUTA_ARCHIVO,
+            "r",
+            newline="",
+            encoding="utf-8"
+        ) as archivo:
+            lector = csv.DictReader(archivo)
 
-    return registros
+            if lector.fieldnames is None:
+                print(
+                    "\nError: el archivo CSV no contiene "
+                    "encabezados validos."
+                )
+                return []
+
+            if lector.fieldnames != CAMPOS:
+                print(
+                    "\nError: el archivo CSV no tiene "
+                    "el formato esperado."
+                )
+                return []
+
+            for registro in lector:
+                registros.append(registro)
+
+        return registros
+
+    except (OSError, csv.Error) as error:
+        print(
+            f"\nError al leer el archivo principal: {error}"
+        )
+        return []
 
 
 def existe_id(id_equipo):

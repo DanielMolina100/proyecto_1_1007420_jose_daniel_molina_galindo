@@ -15,3 +15,10 @@
 [2026-09-26 10:55:55] [METADATOS] Consulta de metadatos del archivo data/registros.csv.
 [2026-09-26 11:26:43] [RESTAURACION] Backup backup_20260926_111209 restaurado. Archivos con problemas de integridad: 0.
 [2026-09-26 11:28:22] [BUSQUEDA] Busqueda secuencial del ID EQ003. Encontrado: True. Registros recorridos: 3.
+[2026-09-26 11:40:35] [CREACION] Se registro el equipo con ID EQ001.
+[2026-09-26 11:53:45] [ERROR] Intento de registro rechazado para ID EQ001: El ID ingresado ya existe.
+[2026-09-26 11:59:51] [CANCELACION] Se cancelo la eliminacion del equipo EQ003.
+[2026-09-26 12:00:06] [BUSQUEDA] Busqueda secuencial del ID EQ003. Encontrado: True. Registros recorridos: 3.
+[2026-09-26 12:01:55] [BUSQUEDA] Busqueda por indice del ID EQ003. Encontrado: False.
+[2026-09-26 12:02:48] [INDICE] Indice principal reconstruido. Registros indexados: 6.
+[2026-09-26 12:03:09] [BUSQUEDA] Busqueda por indice del ID EQ003. Encontrado: True.
