@@ -10,4 +10,54 @@
         <estado>Activo</estado>
         <fecha_registro>2026-09-24</fecha_registro>
     </equipo>
+    <equipo>
+        <id>EQ002</id>
+        <nombre>Impresora Epson L3250</nombre>
+        <categoria>Impresoras</categoria>
+        <marca>Epson</marca>
+        <modelo>L3250</modelo>
+        <departamento>Administracion</departamento>
+        <estado>Activo</estado>
+        <fecha_registro>2026-09-24</fecha_registro>
+    </equipo>
+    <equipo>
+        <id>EQ003</id>
+        <nombre>Monitor Samsung 24</nombre>
+        <categoria>Monitores</categoria>
+        <marca>Samsung</marca>
+        <modelo>LF24T350</modelo>
+        <departamento>Contabilidad</departamento>
+        <estado>Mantenimiento</estado>
+        <fecha_registro>2026-09-24</fecha_registro>
+    </equipo>
+    <equipo>
+        <id>EQ004</id>
+        <nombre>Router Cisco RV340</nombre>
+        <categoria>Redes</categoria>
+        <marca>Cisco</marca>
+        <modelo>RV340</modelo>
+        <departamento>Informatica</departamento>
+        <estado>Activo</estado>
+        <fecha_registro>2026-09-24</fecha_registro>
+    </equipo>
+    <equipo>
+        <id>EQ005</id>
+        <nombre>Laptop Lenovo ThinkPad E14</nombre>
+        <categoria>Computadoras</categoria>
+        <marca>Lenovo</marca>
+        <modelo>ThinkPad E14</modelo>
+        <departamento>Contabilidad</departamento>
+        <estado>Inactivo</estado>
+        <fecha_registro>2026-09-24</fecha_registro>
+    </equipo>
+    <equipo>
+        <id>EQ008</id>
+        <nombre>Servidor Dell PowerEdge T350</nombre>
+        <categoria>Servidores</categoria>
+        <marca>Dell</marca>
+        <modelo>PowerEdge T350</modelo>
+        <departamento>Informatica</departamento>
+        <estado>Activo</estado>
+        <fecha_registro>2026-09-24</fecha_registro>
+    </equipo>
 </equipos>

@@ -1,0 +1,14 @@
+[2026-09-24 19:54:49] [PRUEBA] Sistema de logs funcionando correctamente
+[2026-09-24 20:23:50] [BUSQUEDA] Busqueda secuencial del ID EQ003. Encontrado: True. Registros recorridos: 3.
+[2026-09-24 20:24:05] [BUSQUEDA] Busqueda por categoria 'Computadora'. Resultados encontrados: 0.
+[2026-09-24 20:24:31] [BUSQUEDA] Busqueda secuencial del ID EQ003. Encontrado: True. Registros recorridos: 3.
+[2026-09-24 20:24:40] [BUSQUEDA] Busqueda por categoria 'Computadoras'. Resultados encontrados: 2.
+[2026-09-24 20:24:53] [HASHING] Tabla hash reconstruida. Registros: 6. Colisiones: 1.
+[2026-09-24 20:25:02] [INTEGRIDAD] Verificacion realizada. Archivos integros: 6. Archivos con problemas: 0.
+[2026-09-24 20:25:16] [EXPORTACION] Exportacion XML ejecutada. Resultado: Datos exportados correctamente a: exports\equipos.xml
+[2026-09-26 10:39:45] [BUSQUEDA] Busqueda secuencial del ID EQ003. Encontrado: True. Registros recorridos: 3.
+[2026-09-26 10:39:53] [BUSQUEDA] Busqueda mediante hashing del ID EQ003. Posicion hash: 3. Encontrado: True.
+[2026-09-26 10:40:08] [BUSQUEDA] Busqueda secuencial del ID EQ003. Encontrado: True. Registros recorridos: 3.
+[2026-09-26 10:40:16] [BUSQUEDA] Busqueda mediante hashing del ID EQ008. Posicion hash: 1. Encontrado: True.
+[2026-09-26 10:40:20] [INTEGRIDAD] Verificacion realizada. Archivos integros: 6. Archivos con problemas: 0.
+[2026-09-26 10:40:24] [EXPORTACION] Exportacion XML ejecutada. Resultado: Datos exportados correctamente a: exports\equipos.xml

@@ -30,6 +30,12 @@ from src.integridad import (
     verificar_integridad
 )
 
+from src.logs import registrar_log
+from src.pila import PilaOperaciones
+
+
+pila_operaciones = PilaOperaciones()
+
 def mostrar_equipo(equipo):
     print("\n------------------------------")
     print(f"ID:           {equipo['id']}")
@@ -78,6 +84,16 @@ def opcion_registrar():
         construir_indice_multikey()
         construir_tabla_hash()
         registrar_hashes()
+
+    registrar_log(
+        "CREACION",
+        f"Se registro el equipo con ID {equipo['id']}."
+    )
+    
+    pila_operaciones.push(
+        f"Registro de equipo: {equipo['id']}"
+    )
+
     print("Estructuras auxiliares e integridad actualizadas correctamente.")
     
 def opcion_consultar_todos():
@@ -105,7 +121,17 @@ def opcion_buscar():
         return
 
     resultado = busqueda_secuencial_por_id(id_equipo)
-
+    registrar_log(
+        "BUSQUEDA",
+        f"Busqueda secuencial del ID {id_equipo}. "
+        f"Encontrado: {resultado['encontrado']}. "
+        f"Registros recorridos: {resultado['registros_recorridos']}."
+    )
+    
+    pila_operaciones.push(
+        f"Busqueda secuencial: {id_equipo}"
+    )
+    
     print("\n--- RESULTADO DE LA BUSQUEDA ---")
     print(f"Valor buscado: {resultado['valor_buscado']}")
     print(
@@ -123,7 +149,10 @@ def opcion_construir_indice():
     print("\n=== CONSTRUIR INDICE PRINCIPAL ===")
 
     cantidad, ruta = construir_indice_principal()
-
+    registrar_log(
+        "INDICE",
+        f"Indice principal reconstruido. Registros indexados: {cantidad}."
+    )
     print("\nIndice principal construido correctamente.")
     print(f"Registros indexados: {cantidad}")
     print(f"Archivo generado: {ruta}")
@@ -138,7 +167,16 @@ def opcion_buscar_por_indice():
         return
 
     equipo, mensaje = buscar_por_indice(id_equipo)
-
+    registrar_log(
+        "BUSQUEDA",
+        f"Busqueda por indice del ID {id_equipo}. "
+        f"Encontrado: {equipo is not None}."
+    )
+    
+    pila_operaciones.push(
+        f"Busqueda por indice: {id_equipo}"
+    )
+    
     print(f"\nValor buscado: {id_equipo}")
     print(mensaje)
 
@@ -152,7 +190,10 @@ def opcion_construir_indice_invertido():
     print("\n=== CONSTRUIR INDICE INVERTIDO ===")
 
     cantidad, ruta = construir_indice_invertido()
-
+    registrar_log(
+        "INDICE",
+        f"Indice invertido reconstruido. Categorias indexadas: {cantidad}."
+    )
     print("\nIndice invertido construido correctamente.")
     print(f"Categorias indexadas: {cantidad}")
     print(f"Archivo generado: {ruta}")
@@ -168,7 +209,16 @@ def opcion_buscar_por_categoria():
         return
 
     equipos, mensaje = buscar_por_categoria(categoria)
-
+    registrar_log(
+        "BUSQUEDA",
+        f"Busqueda por categoria '{categoria}'. "
+        f"Resultados encontrados: {len(equipos)}."
+    )
+    
+    pila_operaciones.push(
+        f"Busqueda por categoria: {categoria}"
+    )
+    
     print(f"\nCategoria buscada: {categoria}")
     print(mensaje)
 
@@ -184,7 +234,10 @@ def opcion_construir_indice_multikey():
     print("\n=== CONSTRUIR INDICE MULTIKEY ===")
 
     cantidad, ruta = construir_indice_multikey()
-
+    registrar_log(
+        "INDICE",
+        f"Indice multikey reconstruido. Combinaciones indexadas: {cantidad}."
+    )
     print("\nIndice multikey construido correctamente.")
     print(f"Combinaciones indexadas: {cantidad}")
     print(f"Archivo generado: {ruta}")
@@ -200,7 +253,16 @@ def opcion_buscar_multikey():
         return
 
     equipos, mensaje = buscar_multikey(departamento, estado)
-
+    registrar_log(
+        "BUSQUEDA",
+        f"Busqueda multikey. Departamento: {departamento}, "
+        f"Estado: {estado}. Resultados: {len(equipos)}."
+    )
+    
+    pila_operaciones.push(
+        f"Busqueda multikey: {departamento} - {estado}"
+    )
+    
     print(f"\nDepartamento buscado: {departamento}")
     print(f"Estado buscado: {estado}")
     print(mensaje)
@@ -217,7 +279,11 @@ def opcion_construir_tabla_hash():
     print("\n=== CONSTRUIR TABLA HASH ===")
 
     cantidad, colisiones, ruta = construir_tabla_hash()
-
+    registrar_log(
+        "HASHING",
+        f"Tabla hash reconstruida. Registros: {cantidad}. "
+        f"Colisiones: {colisiones}."
+    )
     print("\nTabla hash construida correctamente.")
     print(f"Registros procesados: {cantidad}")
     print(f"Colisiones detectadas: {colisiones}")
@@ -233,7 +299,17 @@ def opcion_buscar_por_hash():
         return
 
     equipo, posicion, mensaje = buscar_por_hash(id_equipo)
-
+    registrar_log(
+        "BUSQUEDA",
+        f"Busqueda mediante hashing del ID {id_equipo}. "
+        f"Posicion hash: {posicion}. "
+        f"Encontrado: {equipo is not None}."
+    )
+    
+    pila_operaciones.push(
+        f"Busqueda hashing: {id_equipo}"
+    )
+    
     print(f"\nID buscado: {id_equipo}")
 
     if posicion is not None:
@@ -255,6 +331,10 @@ def opcion_registrar_hashes():
     print("\nHuellas SHA-256 registradas correctamente.")
     print(f"Archivos registrados: {cantidad}")
     print(f"Archivo generado: {ruta}")
+    registrar_log(
+        "INTEGRIDAD",
+        f"Se registraron huellas SHA-256 de {cantidad} archivos."
+    )
 
 def opcion_verificar_integridad():
     print("\n=== VERIFICAR INTEGRIDAD SHA-256 ===")
@@ -293,7 +373,16 @@ def opcion_verificar_integridad():
         print("Resultado general: INTEGRIDAD CORRECTA")
     else:
         print("Resultado general: SE DETECTARON ALTERACIONES")
-
+        
+    registrar_log(
+        "INTEGRIDAD",
+        f"Verificacion realizada. Archivos integros: {archivos_integros}. "
+        f"Archivos con problemas: {archivos_alterados}."
+    )
+    pila_operaciones.push(
+        "Verificacion de integridad SHA-256"
+    )
+    
 def opcion_actualizar():
     print("\n=== ACTUALIZAR EQUIPO ===")
 
@@ -337,6 +426,15 @@ def opcion_actualizar():
         construir_indice_multikey()
         construir_tabla_hash()
         registrar_hashes()
+        registrar_log(
+            "ACTUALIZACION",
+            f"Se actualizo el equipo con ID {id_equipo}."
+        )
+        
+    pila_operaciones.push(
+        f"Actualizacion de equipo: {id_equipo}"
+    )
+        
     print("Estructuras auxiliares e integridad actualizadas correctamente.")
 
 def opcion_eliminar():
@@ -365,6 +463,13 @@ def opcion_eliminar():
         construir_indice_multikey()
         construir_tabla_hash()
         registrar_hashes()
+        registrar_log(
+            "ELIMINACION",
+            f"Se elimino el equipo con ID {id_equipo}."
+        ) 
+        pila_operaciones.push(
+            f"Eliminacion de equipo: {id_equipo}"
+        )         
         print("Estructuras auxiliares e integridad actualizadas correctamente.")
     else:
         print("\nEliminacion cancelada.")
@@ -375,6 +480,30 @@ def opcion_exportar_xml():
     resultado, mensaje = exportar_a_xml()
 
     print(f"\n{mensaje}")
+    registrar_log(
+        "EXPORTACION",
+        f"Exportacion XML ejecutada. Resultado: {mensaje}"
+    )
+    pila_operaciones.push(
+        "Exportacion de datos a XML"
+    )
+
+def opcion_mostrar_historial_pila():
+    print("\n=== HISTORIAL DE OPERACIONES - PILA LIFO ===")
+
+    historial = pila_operaciones.obtener_historial()
+
+    if not historial:
+        print("\nLa pila de operaciones esta vacia.")
+        return
+
+    print(f"\nCantidad de operaciones almacenadas: {pila_operaciones.cantidad()}")
+    print(f"TOP actual: {pila_operaciones.top()}")
+
+    print("\nOperaciones desde el TOP:")
+
+    for posicion, operacion in enumerate(historial, start=1):
+        print(f"{posicion}. {operacion}")
 
 def mostrar_menu():
     datos_sistema = obtener_datos_sistema()
@@ -402,6 +531,7 @@ def mostrar_menu():
     print("14. Actualizar equipo")
     print("15. Eliminar equipo")
     print("16. Exportar datos a XML")
+    print("17. Ver historial de operaciones (Pila LIFO)")
     print("0. Salir")   
 
 def main():
@@ -460,6 +590,9 @@ def main():
         elif opcion == "16":
             opcion_exportar_xml()
 
+        elif opcion == "17":
+            opcion_mostrar_historial_pila()
+        
         elif opcion == "0":
             print("\nPrograma finalizado.")
             break
