@@ -1,0 +1,20 @@
+{
+    "sistema": {
+        "nombre": "Sistema de Control de Equipos Tecnologicos",
+        "version": "1.0",
+        "autor": "Jose Daniel Molina Galindo",
+        "carne": "1007420"
+    },
+    "archivos": {
+        "principal": "data/registros.csv",
+        "indices": "indices",
+        "respaldos": "backups",
+        "logs": "logs/sistema.log",
+        "exportaciones": "exports"
+    },
+    "configuracion": {
+        "formato_fecha": "%Y-%m-%d",
+        "codificacion": "utf-8",
+        "maximo_historial_pila": 20
+    }
+}

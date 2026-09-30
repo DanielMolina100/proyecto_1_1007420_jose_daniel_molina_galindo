@@ -111,52 +111,9 @@ def opcion_registrar():
         "Estructuras auxiliares e integridad "
         "actualizadas correctamente."
     )
-    print("\n=== REGISTRAR EQUIPO ===")
-
-    equipo = {
-        "id": input("ID: ").strip(),
-        "nombre": input("Nombre: ").strip(),
-        "categoria": input("Categoria: ").strip(),
-        "marca": input("Marca: ").strip(),
-        "modelo": input("Modelo: ").strip(),
-        "departamento": input("Departamento: ").strip(),
-        "estado": input("Estado: ").strip(),
-        "fecha_registro": ""
-    }
-
-    if not all([
-        equipo["id"],
-        equipo["nombre"],
-        equipo["categoria"],
-        equipo["marca"],
-        equipo["modelo"],
-        equipo["departamento"],
-        equipo["estado"]
-    ]):
-        print("\nError: todos los campos son obligatorios.")
-        return
-
-    resultado, mensaje = registrar_equipo(equipo)
-    print(f"\n{mensaje}")
-
-    if resultado:
-        construir_indice_principal()
-        construir_indice_invertido()
-        construir_indice_multikey()
-        construir_tabla_hash()
-        registrar_hashes()
-
-    registrar_log(
-        "CREACION",
-        f"Se registro el equipo con ID {equipo['id']}."
-    )
     
-    pila_operaciones.push(
-        f"Registro de equipo: {equipo['id']}"
-    )
-
-    print("Estructuras auxiliares e integridad actualizadas correctamente.")
     
+
     
 def opcion_consultar_todos():
     print("\n=== EQUIPOS REGISTRADOS ===")
@@ -445,95 +402,7 @@ def opcion_verificar_integridad():
         "Verificacion de integridad SHA-256"
     )
     
-
-    print("\n=== ACTUALIZAR EQUIPO ===")
-
-    id_equipo = input("Ingrese el ID del equipo: ").strip()
-    equipo = buscar_por_id(id_equipo)
-
-    if not equipo:
-        print("\nNo se encontro un equipo con ese ID.")
-        return
-
-    mostrar_equipo(equipo)
-
-    print("\nIngrese los nuevos datos.")
-    print("Presione ENTER para conservar el valor actual.\n")
-
-    nuevos_datos = {}
-
-    campos = [
-        "nombre",
-        "categoria",
-        "marca",
-        "modelo",
-        "departamento",
-        "estado"
-    ]
-
-    for campo in campos:
-        nuevo_valor = input(
-            f"{campo.capitalize()} [{equipo[campo]}]: "
-        ).strip()
-
-        if nuevo_valor:
-            nuevos_datos[campo] = nuevo_valor
-
-    resultado, mensaje = actualizar_equipo(id_equipo, nuevos_datos)
-    print(f"\n{mensaje}")
-
-    if resultado:
-        construir_indice_principal()
-        construir_indice_invertido()
-        construir_indice_multikey()
-        construir_tabla_hash()
-        registrar_hashes()
-        registrar_log(
-            "ACTUALIZACION",
-            f"Se actualizo el equipo con ID {id_equipo}."
-        )
-        
-    pila_operaciones.push(
-        f"Actualizacion de equipo: {id_equipo}"
-    )
-        
-    print("Estructuras auxiliares e integridad actualizadas correctamente.")
-
-    print("\n=== ELIMINAR EQUIPO ===")
-
-    id_equipo = input("Ingrese el ID del equipo: ").strip()
-    equipo = buscar_por_id(id_equipo)
-
-    if not equipo:
-        print("\nNo se encontro un equipo con ese ID.")
-        return
-
-    mostrar_equipo(equipo)
-
-    confirmacion = input(
-        "\n¿Esta seguro de eliminar este equipo? (S/N): "
-    ).strip().lower()
-
-    if confirmacion == "s":
-            resultado, mensaje = eliminar_equipo(id_equipo)
-    print(f"\n{mensaje}")
-
-    if resultado:
-        construir_indice_principal()
-        construir_indice_invertido()
-        construir_indice_multikey()
-        construir_tabla_hash()
-        registrar_hashes()
-        registrar_log(
-            "ELIMINACION",
-            f"Se elimino el equipo con ID {id_equipo}."
-        ) 
-        pila_operaciones.push(
-            f"Eliminacion de equipo: {id_equipo}"
-        )         
-        print("Estructuras auxiliares e integridad actualizadas correctamente.")
-    else:
-        print("\nEliminacion cancelada.")
+    
 
 def opcion_actualizar():
     print("\n=== ACTUALIZAR EQUIPO ===")

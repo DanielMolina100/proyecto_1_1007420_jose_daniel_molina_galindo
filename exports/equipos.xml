@@ -60,4 +60,44 @@
         <estado>Activo</estado>
         <fecha_registro>2026-09-24</fecha_registro>
     </equipo>
+    <equipo>
+        <id>EQ010</id>
+        <nombre>Tablet</nombre>
+        <categoria>Tablet pro</categoria>
+        <marca>Samsung</marca>
+        <modelo>504R</modelo>
+        <departamento>Modelaje</departamento>
+        <estado>Activo</estado>
+        <fecha_registro>2026-09-28</fecha_registro>
+    </equipo>
+    <equipo>
+        <id>EQ013</id>
+        <nombre>Computadora Mantenimiento</nombre>
+        <categoria>Computadora</categoria>
+        <marca>Dell</marca>
+        <modelo>it456</modelo>
+        <departamento>Auditoria</departamento>
+        <estado>Activa</estado>
+        <fecha_registro>2026-09-28</fecha_registro>
+    </equipo>
+    <equipo>
+        <id>EQ15</id>
+        <nombre>Tablet de recepcion</nombre>
+        <categoria>Tablet rt45</categoria>
+        <marca>Huawei</marca>
+        <modelo>rt45</modelo>
+        <departamento>Recepcion</departamento>
+        <estado>Mantenimiento</estado>
+        <fecha_registro>2026-09-28</fecha_registro>
+    </equipo>
+    <equipo>
+        <id>EQ019</id>
+        <nombre>Cafetera</nombre>
+        <categoria>Cafetera dell</categoria>
+        <marca>Samsung</marca>
+        <modelo>tr56</modelo>
+        <departamento>Cocina</departamento>
+        <estado>Activo</estado>
+        <fecha_registro>2026-09-28</fecha_registro>
+    </equipo>
 </equipos>

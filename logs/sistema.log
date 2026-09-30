@@ -22,3 +22,34 @@
 [2026-09-26 12:01:55] [BUSQUEDA] Busqueda por indice del ID EQ003. Encontrado: False.
 [2026-09-26 12:02:48] [INDICE] Indice principal reconstruido. Registros indexados: 6.
 [2026-09-26 12:03:09] [BUSQUEDA] Busqueda por indice del ID EQ003. Encontrado: True.
+[2026-09-28 18:18:48] [CREACION] Se registro el equipo con ID EQ009.
+[2026-09-28 18:19:46] [CREACION] Se registro el equipo con ID EQ010.
+[2026-09-28 18:26:06] [INTEGRIDAD] Verificacion realizada. Archivos integros: 5. Archivos con problemas: 1.
+[2026-09-28 18:26:28] [INTEGRIDAD] Verificacion realizada. Archivos integros: 6. Archivos con problemas: 0.
+[2026-09-28 18:27:57] [METADATOS] Consulta de metadatos del archivo data/registros.csv.
+[2026-09-28 18:33:17] [CREACION] Se registro el equipo con ID EQ013.
+[2026-09-28 18:34:50] [CREACION] Se registro el equipo con ID EQ15.
+[2026-09-28 18:35:15] [BUSQUEDA] Busqueda secuencial del ID eq008. Encontrado: True. Registros recorridos: 6.
+[2026-09-28 18:44:05] [CREACION] Se registro el equipo con ID EQ019.
+[2026-09-28 18:45:44] [ELIMINACION] Se elimino el equipo con ID eq009.
+[2026-09-28 18:48:17] [CREACION] Se registro el equipo con ID EQ009.
+[2026-09-28 18:49:15] [BUSQUEDA] Busqueda secuencial del ID eq009. Encontrado: True. Registros recorridos: 11.
+[2026-09-28 18:49:33] [INDICE] Indice principal reconstruido. Registros indexados: 11.
+[2026-09-28 18:49:52] [BUSQUEDA] Busqueda por indice del ID eq009. Encontrado: True.
+[2026-09-28 18:50:27] [INDICE] Indice invertido reconstruido. Categorias indexadas: 10.
+[2026-09-28 18:51:05] [BUSQUEDA] Busqueda por categoria 'Perifericos'. Resultados encontrados: 1.
+[2026-09-28 18:51:26] [INDICE] Indice multikey reconstruido. Combinaciones indexadas: 8.
+[2026-09-28 18:52:28] [BUSQUEDA] Busqueda multikey. Departamento: Informatica, Estado: Activo. Resultados: 4.
+[2026-09-28 18:53:05] [HASHING] Tabla hash reconstruida. Registros: 11. Colisiones: 5.
+[2026-09-28 18:54:15] [BUSQUEDA] Busqueda mediante hashing del ID eq008. Posicion hash: 1. Encontrado: True.
+[2026-09-28 18:54:36] [INTEGRIDAD] Se registraron huellas SHA-256 de 6 archivos.
+[2026-09-28 18:55:06] [INTEGRIDAD] Verificacion realizada. Archivos integros: 6. Archivos con problemas: 0.
+[2026-09-28 18:56:34] [INTEGRIDAD] Verificacion realizada. Archivos integros: 6. Archivos con problemas: 0.
+[2026-09-28 18:57:10] [INTEGRIDAD] Verificacion realizada. Archivos integros: 6. Archivos con problemas: 0.
+[2026-09-28 18:58:24] [INTEGRIDAD] Verificacion realizada. Archivos integros: 6. Archivos con problemas: 0.
+[2026-09-29 18:10:38] [ACTUALIZACION] Se actualizo el equipo con ID EQ009.
+[2026-09-29 18:11:10] [BUSQUEDA] Busqueda secuencial del ID EQ009. Encontrado: True. Registros recorridos: 11.
+[2026-09-29 18:11:47] [ELIMINACION] Se elimino el equipo con ID EQ009.
+[2026-09-29 18:11:59] [EXPORTACION] Exportacion XML ejecutada. Resultado: Datos exportados correctamente a: exports\equipos.xml
+[2026-09-29 18:13:02] [METADATOS] Consulta de metadatos del archivo data/registros.csv.
+[2026-09-29 18:14:07] [BACKUP] Backup creado en backups\backup_20260929_181407. Archivos respaldados: 7.
